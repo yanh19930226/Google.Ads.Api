@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Google.Ads.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Google.Ads.Api.Controllers.AuthController">
+            <summary>
+            权限认证管理
+            </summary>
+        </member>
+        <member name="M:Google.Ads.Api.Controllers.AuthController.GetGoogleLoginUrl">
+            <summary>
+            获取登入Google链接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Ads.Api.Controllers.AuthController.GetTokenUserAsync(System.String)">
+            <summary>
+            根据授权码获取长期AccessToken
+            </summary>
+            <param name="code">授权码</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Ads.Api.Controllers.AuthController.ConcatQueryString(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            构造键值参数字符串UTF-8
+            </summary>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Google.Ads.Api.Controllers.AuthController.AccessTokenResponse.access_token">
+            <summary>
+            只返回认证信息
+            </summary>
+        </member>
+        <member name="P:Google.Ads.Api.Controllers.AuthController.AccessTokenResponse.id_token">
+            <summary>
+            oidcToken(认证和授权信息)
+            </summary>
+        </member>
+        <member name="P:Google.Ads.Api.Controllers.AuthController.UserInfoResponse.family_name">
+            <summary>
+            family_name
+            </summary>
+        </member>
+        <member name="P:Google.Ads.Api.Controllers.AuthController.UserInfoResponse.name">
+            <summary>
+            name
+            </summary>
+        </member>
+        <member name="T:Google.Ads.Api.Controllers.CustomerController">
+            <summary>
+            Customer
+            </summary>
+        </member>
+        <member name="T:Google.Ads.Api.GoogleResult">
+            <summary>
+            响应实体
+            </summary>
+        </member>
+        <member name="P:Google.Ads.Api.GoogleResult.Code">
+            <summary>
+            响应码
+            </summary>
+        </member>
+        <member name="P:Google.Ads.Api.GoogleResult.Message">
+            <summary>
+            响应信息
+            </summary>
+        </member>
+        <member name="P:Google.Ads.Api.GoogleResult.IsSuccess">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="P:Google.Ads.Api.GoogleResult.Timestamp">
+            <summary>
+            时间戳(毫秒)
+            </summary>
+        </member>
+        <member name="M:Google.Ads.Api.GoogleResult.Success(System.String)">
+            <summary>
+            响应成功
+            </summary>
+            <param name="message"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Ads.Api.GoogleResult.Failed(System.String)">
+            <summary>
+            响应失败
+            </summary>
+            <param name="message"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Google.Ads.Api.GoogleResult.Failed(System.Exception)" -->
+        <member name="T:Google.Ads.Api.GoogleResult`1">
+            <summary>
+            响应实体
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Google.Ads.Api.GoogleResult`1.Result">
+            <summary>
+            返回结果
+            </summary>
+        </member>
+        <member name="M:Google.Ads.Api.GoogleResult`1.Success(`0,System.String)">
+            <summary>
+            响应成功
+            </summary>
+            <param name="result"></param>
+            <param name="message"></param>
+        </member>
+        <member name="F:Google.Ads.Api.GoogleResultCode.Succeed">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:Google.Ads.Api.GoogleResultCode.Failed">
+            <summary>
+            失败
+            </summary>
+        </member>
+    </members>
+</doc>
