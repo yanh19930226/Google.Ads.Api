@@ -22,7 +22,6 @@ namespace Google.Ads.Api.Controllers
             _service = service;
         }
         [HttpGet("CreateCustomer")]
-        //[Route("CreateCustomer")]
         public IActionResult CreateCustomer(long ManagerCustomerId)
         {
             CreateCustomerDto createCustomerDto = new CreateCustomerDto(ManagerCustomerId);
