@@ -9,4 +9,8 @@
     <PackageReference Include="Google.Ads.GoogleAds" Version="9.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Google.Ads.Sdk\Google.Ads.Sdk.csproj" />
+  </ItemGroup>
+
 </Project>

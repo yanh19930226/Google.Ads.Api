@@ -1,43 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Google.Ads.Sdk.Models
 {
-    public abstract class BaseRequest<T, K>
+    public class BaseAttribute
     {
-        public BaseRequest(string token,string developToken)
+        internal string resourceName { get; set; }
+    }
+
+    public class BaseRequest
+    {
+        public BaseRequest(string token, string developToken, string loginCustomerId = null, string linkedCustomerId = null)
         {
             this.Token = token;
             this.DevelopToken = developToken;
+            this.LoginCustomerId = loginCustomerId;
+            this.LinkedCustomerId = linkedCustomerId;
         }
+
         public string Token { get; set; }
-
         public string DevelopToken { get; set; }
-
-        public abstract string Url { get; }
-    }
-
-    public class SearchRequest
-    {
-        public int query { get; set; }
-        public int pageSize { get; set; }
-
-        public int pageToken { get; set; }
-    }
-    public class SearchStreamRequest
-    {
-        public int query { get; set; }
-        
-    }
-
-    public class MutateRequest
-    {
+        public string LoginCustomerId { get; set; }
+        public string LinkedCustomerId { get; set; }
 
     }
-
-    public class Operation<T>
-    {
-        
-    }
+    
 }

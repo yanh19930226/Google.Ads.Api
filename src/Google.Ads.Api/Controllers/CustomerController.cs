@@ -1,7 +1,4 @@
-﻿using CommandLine;
-using Google.Ads.Api.GoogleServices.AccountManagement;
-using Google.Ads.Api.Models.AccountManagement;
-using Google.Ads.GoogleAds.Lib;
+﻿using Google.Ads.Api.GoogleServices.AccountManagement;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,11 +21,7 @@ namespace Google.Ads.Api.Controllers
         [HttpGet("CreateCustomer")]
         public IActionResult CreateCustomer(long ManagerCustomerId)
         {
-            CreateCustomerDto createCustomerDto = new CreateCustomerDto(ManagerCustomerId);
-
-            var res= _service.Run(createCustomerDto.ManagerCustomerId);
-
-            return Ok(res);
+            return null;
         }
     }
 }

@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Google.Ads.Api", "src\Googl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Google.Ads.Web", "src\Google.Ads.Web\Google.Ads.Web.csproj", "{89FCB1AE-C0CA-4605-AFFC-599D6FA4F63D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Ads.Console", "test\Google.Ads.Console\Google.Ads.Console.csproj", "{CEE2303B-1E5F-4C08-93A2-0E1899CAE2F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Google.Ads.Console", "test\Google.Ads.Console\Google.Ads.Console.csproj", "{CEE2303B-1E5F-4C08-93A2-0E1899CAE2F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Ads.Sdk", "src\Google.Ads.Sdk\Google.Ads.Sdk.csproj", "{199C2643-30DA-4518-868B-CFFBDA382970}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Google.Ads.Sdk", "src\Google.Ads.Sdk\Google.Ads.Sdk.csproj", "{199C2643-30DA-4518-868B-CFFBDA382970}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
