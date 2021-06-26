@@ -51,7 +51,6 @@ namespace Google.Ads.Sdk
 
             httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
-
             HttpResponseMessage httpResponse = new HttpResponseMessage();
 
             httpResponse = _client.PostAsync(url, httpContent).Result;
