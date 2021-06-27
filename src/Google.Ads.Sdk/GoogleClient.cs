@@ -1,7 +1,8 @@
-﻿using Google.Ads.Sdk.Models;
-using System.Net.Http;
+﻿using System.Net.Http;
 using Newtonsoft.Json;
 using Flurl.Http;
+using Google.Ads.Sdk.Models.Bases;
+using Google.Ads.Sdk.Models.Customers;
 
 namespace Google.Ads.Sdk
 {
@@ -76,9 +77,55 @@ namespace Google.Ads.Sdk
 
         }
 
-        public void MutateRequest(MutateRequest mutateRequest)
+        public string MutateRequest(MutateRequest request)
         {
+            var url = "https://googleads.googleapis.com/v8" + request.Url;
 
+            _client.DefaultRequestHeaders.Clear();
+
+            _client.DefaultRequestHeaders.Add("ContentType", "application/json");
+
+            _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + request.Token);
+
+            _client.DefaultRequestHeaders.Add("developer-token", request.DevelopToken);
+
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(new { partialFailure=request.PartialFailure, operations = request.Operations }));
+
+            httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+            HttpResponseMessage httpResponse = new HttpResponseMessage();
+
+            httpResponse = _client.PostAsync(url, httpContent).Result;
+
+            var content = httpResponse.Content.ReadAsStringAsync().Result;
+
+            return content;
+        }
+
+
+        public string Post(CreateCustomerClientRequest request)
+        {
+            var url = "https://googleads.googleapis.com/v8" + request.Url;
+
+            _client.DefaultRequestHeaders.Clear();
+
+            _client.DefaultRequestHeaders.Add("ContentType", "application/json");
+
+            _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + request.Token);
+
+            _client.DefaultRequestHeaders.Add("developer-token", request.DevelopToken);
+
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(new { customerClient = request.customerClient }));
+
+            httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+            HttpResponseMessage httpResponse = new HttpResponseMessage();
+
+            httpResponse = _client.PostAsync(url, httpContent).Result;
+
+            var content = httpResponse.Content.ReadAsStringAsync().Result;
+
+            return content;
         }
     }
 }

@@ -6,10 +6,12 @@ using Google.Ads.GoogleAds.V7.Resources;
 using Google.Ads.GoogleAds.V7.Services;
 using Google.Ads.Sdk;
 using Google.Ads.Sdk.Models;
+using Google.Ads.Sdk.Models.Bases;
 using Google.Ads.Sdk.Models.Customers;
 using Google.Ads.Sdk.Models.Reports;
 using System;
 using System.Collections.Generic;
+using CreateCustomerClientRequest = Google.Ads.Sdk.Models.Customers.CreateCustomerClientRequest;
 
 namespace Google.Ads.Console
 {
@@ -17,54 +19,37 @@ namespace Google.Ads.Console
     {
         static void Main(string[] args)
         {
-            //string developerToken = "Fu8l4LAdiKG9BLBPsLB3uA";
-            //string oAuth2clientId = "298324624669-kachgof1usnvgi9lc75f11fct1348met.apps.googleusercontent.com";
-            //string oAuth2Secret = "FnwDNLJt_Rqf_-CM3YjO8F6c";
-            //string oAuth2RefreshToken = "1//0d95VNNbjByVjCgYIARAAGA0SNwF-L9IrP7aZsFW6uJbTiLZDRGPtnsdvMESwLSLktrQ0qsRokRlWkeD2Vkrp3z75B2XETwoA1Vw";
-            ////long loginCustomerId = long.Parse("INSERT_LOGIN_CUSTOMER_ID_HERE");
-
-            //GoogleAdsConfig googleAdsConfig = new GoogleAdsConfig()
-            //{
-            //    DeveloperToken = developerToken,
-            //    //LoginCustomerId = loginCustomerId.ToString(),
-            //    OAuth2ClientId = oAuth2clientId,
-            //    OAuth2ClientSecret = oAuth2Secret,
-            //    OAuth2RefreshToken = oAuth2RefreshToken,
-            //};
-
-            //GoogleAdsClient googleAdsClient = new GoogleAdsClient(googleAdsConfig);
-
-            //GetCampaigns(googleAdsClient, 2047682244);
-
             GoogleClient client = new GoogleClient();
 
+
+
+            var accessToken = "ya29.a0ARrdaM9zGPSQvTk5p9VGBexrv0IpOW5xTu037hDWghy2NTNXXGgKTtmrbF_vSDIz3nophD1vBFb7k-MxOEVZgSpZYZ1zVAA3MSNyjfVFnm_Gkoog3TPwiJDwDH_9FR0dk3KueS2tgBsSiy3sqW9eK-ZDHh8w";
+            var developToken = "Fu8l4LAdiKG9BLBPsLB3uA";
             #region Search
 
+            //string query1 = @"SELECT
+            //                          campaign.name,
+            //                          campaign.status,
+            //                          segments.device,
+            //                          metrics.impressions,
+            //                          metrics.clicks,
+            //                          metrics.ctr,
+            //                          metrics.average_cpc,
+            //                          metrics.cost_micros
+            //                        FROM campaign
+            //                        WHERE segments.date DURING LAST_30_DAYS";
 
-            string query1 = @"SELECT
-                                      campaign.name,
-                                      campaign.status,
-                                      segments.device,
-                                      metrics.impressions,
-                                      metrics.clicks,
-                                      metrics.ctr,
-                                      metrics.average_cpc,
-                                      metrics.cost_micros
-                                    FROM campaign
-                                    WHERE segments.date DURING LAST_30_DAYS";
+            //string query = @"SELECT
+            //                          campaign.name,
+            //                          campaign.status
+            //                        FROM campaign";
 
-            string query = @"SELECT
-                                      campaign.name,
-                                      campaign.status
-                                    FROM campaign";
 
-            var accessToken = "ya29.a0AfH6SMAK8Ta7u1_8nQxKwb3iGJ9MZi105DnFKQAew2evGMBDkOF1U697KwH6tFb4-OgllSLZIY-Xk5B_ZiPFx69L2JTMh4fXLVqcMLIa-_7ZveFORa10D8e6qMxDTtusacg6_EHHpmYCe27lMe6vQEfaKTlG";
+            //CampainReportSearchStreamRequest req = new CampainReportSearchStreamRequest("9596133160", accessToken, "Fu8l4LAdiKG9BLBPsLB3uA", query);
 
-            CampainReportSearchStreamRequest req = new CampainReportSearchStreamRequest("9596133160", accessToken, "Fu8l4LAdiKG9BLBPsLB3uA", query);
+            //var res=client.SearchStreamRequest(req);
 
-            var res=client.SearchStreamRequest(req);
 
-            System.Console.WriteLine(res.ToString());
 
             //CampainReportSearchRequest campainReportSearchRequest = new CampainReportSearchRequest("", "", "", "");
 
@@ -72,23 +57,54 @@ namespace Google.Ads.Console
 
             #endregion
 
-            //List<Operation> operations = new List<Operation>();
+            #region Create
+            CreateCustomerModel createModel = new CreateCustomerModel();
+            createModel.currencyCode = "USD";
+            createModel.descriptiveName = "apitest";
+            createModel.timeZone = "America/New_York";
 
-            //CustomerCreateOption customerCreateOption = new CustomerCreateOption();
+            //var createoperations = new MutateOperationsBuilder().ConfigureCreateOperation(new CreateOperation<CreateCustomerModel>(createModel)).Build();
 
-            //CreateOperation<CustomerCreateOption> createOperation = new CreateOperation<CustomerCreateOption>(customerCreateOption);
+            //CreateCustomerMutateRequest customerCreateMutateRequest = new CreateCustomerMutateRequest("9596133160",accessToken, developToken, createoperations);
 
-            //operations.Add(createOperation);
+            var createCustomerClient = new CreateCustomerClientRequest("9596133160", createModel, accessToken, developToken);
 
-            //CustomerCreateMutateRequest mutateCreate = new CustomerCreateMutateRequest("", operations);
+            //3833618729，5852967341
 
-            //client.MutateRequest(mutateCreate);
+            var res = client.Post(createCustomerClient);
 
-            //System.Console.WriteLine(req.query);
+            //var res = client.MutateRequest(customerCreateMutateRequest);
+            #endregion
 
-            var result = new Test(1, 2);
+            #region Update
+            //UpdateCustomerModel updateModel = new UpdateCustomerModel();
+            //updateModel.resourceName = "11";
+            //updateModel.age = "11";
+            //updateModel.name = "test";
 
-            System.Console.WriteLine(result.Res);
+            //var updateoperations = new MutateOperationsBuilder().ConfigureUpdateCreateOperation(new UpdateOperation<UpdateCustomerModel>(updateModel)).Build();
+            //UpdateCustomerMutateRequest updateCustomerMutateRequest = new UpdateCustomerMutateRequest("", "", "", updateoperations);
+
+            //var res = client.MutateRequest(updateCustomerMutateRequest);
+            #endregion
+
+            #region Remove
+
+            //var removeoperations = new MutateOperationsBuilder().ConfigureRemoveOperation(new RemoveOperation() { remove = "" }).Build();
+            //RemoveCustomerMutateRequest removeCustomerMutateRequest = new RemoveCustomerMutateRequest("", "", "", removeoperations);
+            //var res = client.MutateRequest(removeCustomerMutateRequest);
+
+            #endregion
+
+            #region MultiOperation
+            //var multiOperations = new MutateOperationsBuilder()
+            //    .ConfigureCreateOperation(new CreateOperation<CreateCustomerModel>(createModel))
+            //    .ConfigureUpdateCreateOperation(new UpdateOperation<UpdateCustomerModel>(updateModel))
+            //    .ConfigureRemoveOperation(new RemoveOperation() { remove = "" }).Build();
+            //var res = client.MutateRequest(removeCustomerMutateRequest);
+            #endregion
+
+            System.Console.WriteLine(res.ToString());
 
         }
 

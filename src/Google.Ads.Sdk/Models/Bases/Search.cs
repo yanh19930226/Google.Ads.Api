@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Google.Ads.Sdk.Models
+namespace Google.Ads.Sdk.Models.Bases
 {
     public abstract class SearchStreamRequest<V> : BaseRequest
     {

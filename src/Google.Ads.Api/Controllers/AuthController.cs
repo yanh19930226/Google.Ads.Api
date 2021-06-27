@@ -26,6 +26,7 @@ namespace Google.Ads.Api.Controllers
         {
             _settings = options.Value;
         }
+
         /// <summary>
         /// 获取登入Google链接
         /// </summary>

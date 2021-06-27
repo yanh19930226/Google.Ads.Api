@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Google.Ads.Sdk
 {
-    public static class FieldBuilder
+    public static class ConditionBuilder
     {
         //public static void Where(this Field test,Func<Field,Field>func)
         //{

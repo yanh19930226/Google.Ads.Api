@@ -17,9 +17,16 @@
         </member>
         <member name="M:Google.Ads.Api.Controllers.AuthController.GetTokenUserAsync(System.String)">
             <summary>
-            根据授权码获取长期AccessToken
+            根据授权码获取AccessToken
             </summary>
             <param name="code">授权码</param>
+            <returns></returns>
+        </member>
+        <member name="M:Google.Ads.Api.Controllers.AuthController.GetTokenWithRefreshToken(System.String)">
+            <summary>
+            使用RefreshToken刷新AccessToken
+            </summary>
+            <param name="refreshToken"></param>
             <returns></returns>
         </member>
         <member name="M:Google.Ads.Api.Controllers.AuthController.ConcatQueryString(System.Collections.Generic.Dictionary{System.String,System.String})">

@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Text;
 
-namespace Google.Ads.Sdk.Models
+namespace Google.Ads.Sdk.Models.Bases
 {
-    public class BaseAttribute
-    {
-        internal string resourceName { get; set; }
-    }
-
     public class BaseRequest
     {
         public BaseRequest(string token, string developToken, string loginCustomerId = null, string linkedCustomerId = null)
@@ -27,5 +20,4 @@ namespace Google.Ads.Sdk.Models
         public string LinkedCustomerId { get; set; }
 
     }
-    
 }

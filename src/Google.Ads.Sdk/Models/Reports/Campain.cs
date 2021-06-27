@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Google.Ads.Sdk.Models.Bases;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Google.Ads.Sdk.Models.Reports
 {
 
-    public class CampainAttribute : BaseAttribute
+    public class CampainAttribute 
     {
+        public string resourceName { get; set; }
         public string name { get; set; }
         public string status { get; set; }
     }
