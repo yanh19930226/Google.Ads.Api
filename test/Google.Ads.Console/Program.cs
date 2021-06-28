@@ -1,13 +1,9 @@
 ﻿using Google.Ads.Sdk;
-using Google.Ads.Sdk.Models;
 using Google.Ads.Sdk.Models.AdGroups;
 using Google.Ads.Sdk.Models.Bases;
-using Google.Ads.Sdk.Models.CampainBudgets;
-using Google.Ads.Sdk.Models.Campains;
-using Google.Ads.Sdk.Models.Customers;
-using Google.Ads.Sdk.Models.Reports;
-using System;
-using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
+using Moq;
+using System.Net.Http;
 using CreateCustomerClientRequest = Google.Ads.Sdk.Models.Customers.CreateCustomerClientRequest;
 
 namespace Google.Ads.Console
@@ -16,7 +12,14 @@ namespace Google.Ads.Console
     {
         static void Main(string[] args)
         {
-            GoogleClient client = new GoogleClient();
+
+            var loggerMock = new Mock<ILogger<GoogleClient>>();
+
+            var policyloggerMock = new Mock<ILogger<GoogleClientPolly>>();
+            var policy = new GoogleClientPolly(policyloggerMock.Object).CreatePolly();
+
+
+            GoogleClient client = new GoogleClient(loggerMock.Object, new HttpClient(), policy);
 
             var logincustomerId = "9596133160";
             var accessToken = "ya29.a0ARrdaM_cNVp5Hom05limuJ11qDX2EnOei_ZMXF0KwTX7jGqq7s6b6CNueZrqnYM-hkuXVLIVuAcN-dDxGKk5AlvtyZp6rLII9jwGXEkuI9rGINpk4_c7T9DE5Nx5DDSMorOhUnM2PllH5lNsT6O5Utw4r66e";
@@ -133,7 +136,6 @@ namespace Google.Ads.Console
             var createAdGroupRes = client.MutateRequest(createAdGroupMutateRequest);
 
             #endregion
-
 
             #region Update
             //UpdateCustomerModel updateModel = new UpdateCustomerModel();

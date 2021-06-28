@@ -11,11 +11,13 @@ namespace Google.Ads.Sdk
     public class GoogleClient
     {
         private HttpClient _client { get; }
-        //private ISyncPolicy<HttpResponseMessage> _policy { get; }
-        //private readonly ILogger<GoogleClient> _logger;
-        public GoogleClient(/*ILogger<GoogleClient> logger, HttpClient client, ISyncPolicy<HttpResponseMessage> policy*/)
+        private ISyncPolicy<HttpResponseMessage> _policy { get; }
+        private readonly ILogger<GoogleClient> _logger;
+        public GoogleClient(ILogger<GoogleClient> logger, HttpClient client, ISyncPolicy<HttpResponseMessage> policy)
         {
-            _client = new HttpClient();
+            _logger = logger;
+            _policy = policy;
+            _client = client;
         }
 
         /// <summary>
