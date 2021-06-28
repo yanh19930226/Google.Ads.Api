@@ -3,6 +3,8 @@ using Newtonsoft.Json;
 using Flurl.Http;
 using Google.Ads.Sdk.Models.Bases;
 using Google.Ads.Sdk.Models.Customers;
+using Polly;
+using Microsoft.Extensions.Logging;
 
 namespace Google.Ads.Sdk
 {
@@ -11,11 +13,17 @@ namespace Google.Ads.Sdk
         private HttpClient _client { get; }
         //private ISyncPolicy<HttpResponseMessage> _policy { get; }
         //private readonly ILogger<GoogleClient> _logger;
-        public GoogleClient()
+        public GoogleClient(/*ILogger<GoogleClient> logger, HttpClient client, ISyncPolicy<HttpResponseMessage> policy*/)
         {
             _client = new HttpClient();
         }
 
+        /// <summary>
+        /// 分页搜索
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public T SearchRequest<T>(SearchRequest<T> request)
         {
             var url = "https://googleads.googleapis.com/v8";
@@ -25,6 +33,20 @@ namespace Google.Ads.Sdk
             _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + request.Token);
 
             _client.DefaultRequestHeaders.Add("developer-token", request.DevelopToken);
+
+            if (string.IsNullOrEmpty(request.LoginCustomerId) == false)
+            {
+                _client.DefaultRequestHeaders.Add("login-customer-id", request.LoginCustomerId);
+            }
+
+            if (string.IsNullOrEmpty(request.LinkedCustomerId) == false)
+            {
+                _client.DefaultRequestHeaders.Add("linked-customer-id", request.LinkedCustomerId);
+            }
+
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(new { pageSize=request.pageSize, query = request.Query, pageToken=request.pageToken }));
+
+            httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
             HttpResponseMessage httpResponse = new HttpResponseMessage();
 
@@ -36,6 +58,13 @@ namespace Google.Ads.Sdk
 
             return obj;
         }
+        
+        /// <summary>
+        /// 搜索流
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public T SearchStreamRequest<T>(SearchStreamRequest<T> request)
         {
             var url = "https://googleads.googleapis.com/v8"+request.Url;
@@ -47,6 +76,16 @@ namespace Google.Ads.Sdk
             _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + request.Token);
 
             _client.DefaultRequestHeaders.Add("developer-token", request.DevelopToken);
+
+            if (string.IsNullOrEmpty(request.LoginCustomerId) == false)
+            {
+                _client.DefaultRequestHeaders.Add("login-customer-id", request.LoginCustomerId);
+            }
+
+            if (string.IsNullOrEmpty(request.LinkedCustomerId) == false)
+            {
+                _client.DefaultRequestHeaders.Add("linked-customer-id", request.LinkedCustomerId);
+            }
 
             HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(new { query = request.Query }));
 
@@ -64,20 +103,12 @@ namespace Google.Ads.Sdk
 
         }
 
-        public T SearchStreamRequestTT<T>(SearchStreamRequest<T> request)
-        {
-            var host = "https://googleads.googleapis.com/v8";
-
-            return $"{host}{request.Url}".WithHeaders(new { Authorization = "Bearer "+ request.Token, developer_token =request.DevelopToken })
-                .PostJsonAsync(new
-                {
-                    query = request.Query
-                })
-                .ReceiveJson<T>().Result;
-
-        }
-
-        public string MutateRequest(MutateRequest request)
+        /// <summary>
+        /// Mutate
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public T MutateRequest<T>(MutateRequest<T> request)
         {
             var url = "https://googleads.googleapis.com/v8" + request.Url;
 
@@ -89,7 +120,22 @@ namespace Google.Ads.Sdk
 
             _client.DefaultRequestHeaders.Add("developer-token", request.DevelopToken);
 
-            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(new { partialFailure=request.PartialFailure, operations = request.Operations }));
+            if (string.IsNullOrEmpty(request.LoginCustomerId) == false)
+            {
+                _client.DefaultRequestHeaders.Add("login-customer-id", request.LoginCustomerId);
+            }
+
+            if (string.IsNullOrEmpty(request.LinkedCustomerId) == false)
+            {
+                _client.DefaultRequestHeaders.Add("linked-customer-id", request.LinkedCustomerId);
+            }
+
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(new {
+                partialFailure=request.PartialFailure, 
+                operations = request.Operations, 
+                validateOnly=request.ValidateOnly,
+                responseContentType=request.responseContentType
+            }));
 
             httpContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
@@ -99,11 +145,17 @@ namespace Google.Ads.Sdk
 
             var content = httpResponse.Content.ReadAsStringAsync().Result;
 
-            return content;
+            T obj = JsonConvert.DeserializeObject<T>(content);
+
+            return obj;
         }
 
-
-        public string Post(CreateCustomerClientRequest request)
+        /// <summary>
+        /// CreateCustomerClient(其他方法)
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public CreateCustomerClientResponse CreateCustomerClient(CreateCustomerClientRequest request)
         {
             var url = "https://googleads.googleapis.com/v8" + request.Url;
 
@@ -114,6 +166,7 @@ namespace Google.Ads.Sdk
             _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + request.Token);
 
             _client.DefaultRequestHeaders.Add("developer-token", request.DevelopToken);
+           
 
             HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(new { customerClient = request.customerClient }));
 
@@ -125,7 +178,10 @@ namespace Google.Ads.Sdk
 
             var content = httpResponse.Content.ReadAsStringAsync().Result;
 
-            return content;
+            CreateCustomerClientResponse obj = JsonConvert.DeserializeObject<CreateCustomerClientResponse>(content);
+
+            return obj;
         }
+        
     }
 }

@@ -1,12 +1,9 @@
-﻿using Google.Ads.GoogleAds;
-using Google.Ads.GoogleAds.Config;
-using Google.Ads.GoogleAds.Lib;
-using Google.Ads.GoogleAds.V7.Errors;
-using Google.Ads.GoogleAds.V7.Resources;
-using Google.Ads.GoogleAds.V7.Services;
-using Google.Ads.Sdk;
+﻿using Google.Ads.Sdk;
 using Google.Ads.Sdk.Models;
+using Google.Ads.Sdk.Models.AdGroups;
 using Google.Ads.Sdk.Models.Bases;
+using Google.Ads.Sdk.Models.CampainBudgets;
+using Google.Ads.Sdk.Models.Campains;
 using Google.Ads.Sdk.Models.Customers;
 using Google.Ads.Sdk.Models.Reports;
 using System;
@@ -21,11 +18,74 @@ namespace Google.Ads.Console
         {
             GoogleClient client = new GoogleClient();
 
-
-
-            var accessToken = "ya29.a0ARrdaM9zGPSQvTk5p9VGBexrv0IpOW5xTu037hDWghy2NTNXXGgKTtmrbF_vSDIz3nophD1vBFb7k-MxOEVZgSpZYZ1zVAA3MSNyjfVFnm_Gkoog3TPwiJDwDH_9FR0dk3KueS2tgBsSiy3sqW9eK-ZDHh8w";
+            var logincustomerId = "9596133160";
+            var accessToken = "ya29.a0ARrdaM_cNVp5Hom05limuJ11qDX2EnOei_ZMXF0KwTX7jGqq7s6b6CNueZrqnYM-hkuXVLIVuAcN-dDxGKk5AlvtyZp6rLII9jwGXEkuI9rGINpk4_c7T9DE5Nx5DDSMorOhUnM2PllH5lNsT6O5Utw4r66e";
             var developToken = "Fu8l4LAdiKG9BLBPsLB3uA";
-            #region Search
+
+            #region CreateCustomer
+
+            //CreateCustomerModel createModel = new CreateCustomerModel();
+            //createModel.currencyCode = "USD";
+            //createModel.descriptiveName = "apitest";
+            //createModel.timeZone = "America/New_York";
+
+            //var createCustomerClientRequest = new CreateCustomerClientRequest(customerId, createModel, accessToken, developToken);
+
+            //var res = client.CreateCustomerClient(createCustomerClientRequest);
+
+            //3833618729，5852967341
+
+            #endregion
+
+            #region CampainBudget
+
+            //CreateCampainBudgetModel createCampainBudgetModel = new CreateCampainBudgetModel() {
+            //    name = "yanhTestBudget",
+            //    amountMicros= 500000,
+            //    deliveryMethod=BudgetDeliveryMethod.STANDARD
+            //};
+
+            //var createCampainBudgetOperations = new MutateOperationsBuilder().ConfigureCreateOperation(new CreateOperation<CreateCampainBudgetModel>(createCampainBudgetModel)).Build();
+
+            //var createCampainBudgetMutateRequest = new CreateCampainBudgetMutateRequest("3833618729", createCampainBudgetModel, accessToken, developToken, createCampainBudgetOperations, logincustomerId);
+
+            //var createCampainBudgetRes = client.MutateRequest(createCampainBudgetMutateRequest);
+
+
+            #endregion
+
+
+            #region CreateCampain
+
+            //CreateCampainModel createCampainModel = new CreateCampainModel()
+            //{
+            //    name = "test2",
+            //    status = CampainStatus.PAUSED,
+            //    advertisingChannelType = AdvertisingChannelType.SEARCH,
+            //    campaignBudget = "customers/3833618729/campaignBudgets/9011268205",
+            //    manualCpc = new ManualCpc() { enhancedCpcEnabled = true },
+            //    startDate = "2021-06-29",
+            //    endDate = "2021-09-29",
+            //    networkSettings = new NetworkSettings()
+            //    {
+            //        targetGoogleSearch = true,
+            //        targetSearchNetwork = true,
+            //        targetContentNetwork = false,
+            //        targetPartnerSearchNetwork = false,
+            //    }
+            //};
+
+            //var createCampainOperations = new MutateOperationsBuilder().ConfigureCreateOperation(new CreateOperation<CreateCampainModel>(createCampainModel)).Build();
+
+            //var createCampainMutateRequest = new CreateCampainMutateRequest("3833618729", createCampainModel, accessToken, developToken, createCampainOperations, logincustomerId);
+
+            //var createCampainRes = client.MutateRequest(createCampainMutateRequest);
+
+            //System.Console.WriteLine(createCampainRes);
+
+            #endregion
+
+            #region SearchCampaign
 
             //string query1 = @"SELECT
             //                          campaign.name,
@@ -57,24 +117,23 @@ namespace Google.Ads.Console
 
             #endregion
 
-            #region Create
-            CreateCustomerModel createModel = new CreateCustomerModel();
-            createModel.currencyCode = "USD";
-            createModel.descriptiveName = "apitest";
-            createModel.timeZone = "America/New_York";
+            #region CreateCampainAdGroup
 
-            //var createoperations = new MutateOperationsBuilder().ConfigureCreateOperation(new CreateOperation<CreateCustomerModel>(createModel)).Build();
+            CreateAdGroupModel createAdGroupModel = new CreateAdGroupModel() { 
+              name="testGroup",
+              campaign= "customers/3833618729/campaigns/13693376620",
+              cpcBidMicros= 10000000,
+              status= AdGroupStatus.ENABLED
+            };
 
-            //CreateCustomerMutateRequest customerCreateMutateRequest = new CreateCustomerMutateRequest("9596133160",accessToken, developToken, createoperations);
+            var createAdGroupOperations = new MutateOperationsBuilder().ConfigureCreateOperation(new CreateOperation<CreateAdGroupModel>(createAdGroupModel)).Build();
 
-            var createCustomerClient = new CreateCustomerClientRequest("9596133160", createModel, accessToken, developToken);
+            var createAdGroupMutateRequest = new CreateAdGroupMutateRequest("3833618729", createAdGroupModel, accessToken, developToken, createAdGroupOperations, logincustomerId);
 
-            //3833618729，5852967341
+            var createAdGroupRes = client.MutateRequest(createAdGroupMutateRequest);
 
-            var res = client.Post(createCustomerClient);
-
-            //var res = client.MutateRequest(customerCreateMutateRequest);
             #endregion
+
 
             #region Update
             //UpdateCustomerModel updateModel = new UpdateCustomerModel();
@@ -104,81 +163,10 @@ namespace Google.Ads.Console
             //var res = client.MutateRequest(removeCustomerMutateRequest);
             #endregion
 
-            System.Console.WriteLine(res.ToString());
+            //System.Console.WriteLine(res.ToString());
 
         }
 
-        public static void CreateCustomer(GoogleAdsClient client, long managerCustomerId)
-        {
-            // Get the CustomerService.
-            CustomerServiceClient customerService = client.GetService(Services.V7.CustomerService);
-
-            Customer customer = new Customer()
-            {
-                DescriptiveName = $"Account created with CustomerService on '{DateTime.Now}'",
-
-                // For a list of valid currency codes and time zones see this documentation:
-                // https://developers.google.com/google-ads/api/reference/data/codes-formats#codes_formats.
-                CurrencyCode = "USD",
-                TimeZone = "America/New_York",
-
-                // The below values are optional. For more information about URL
-                // options see: https://support.google.com/google-ads/answer/6305348.
-                TrackingUrlTemplate = "{lpurl}?device={device}",
-                FinalUrlSuffix = "keyword={keyword}&matchtype={matchtype}&adgroupid={adgroupid}"
-            };
-
-            try
-            {
-                // Create the account.
-                CreateCustomerClientResponse response = customerService.CreateCustomerClient(
-                    managerCustomerId.ToString(), customer);
-
-            }
-            catch (GoogleAdsException e)
-            {
-                throw;
-            }
-        }
-
-        public static void GetCampaigns(GoogleAdsClient client, long customerId)
-        {
-            // Get the GoogleAdsService.
-            GoogleAdsServiceClient googleAdsService = client.GetService(
-                Services.V7.GoogleAdsService);
-
-            // Create a query that will retrieve all campaigns.
-            string query = @"SELECT
-                            campaign.id,
-                            campaign.name,
-                            campaign.network_settings.target_content_network
-                        FROM campaign
-                        ORDER BY campaign.id";
-
-            try
-            {
-                // Issue a search request.
-                googleAdsService.SearchStream(customerId.ToString(), query,
-                    delegate (SearchGoogleAdsStreamResponse resp)
-                    {
-                        foreach (GoogleAdsRow googleAdsRow in resp.Results)
-                        {
-                            System.Console.WriteLine("Campaign with ID {0} and name '{1}' was found.",
-                                googleAdsRow.Campaign.Id, googleAdsRow.Campaign.Name);
-                        }
-                    }
-                );
-            }
-            catch (GoogleAdsException e)
-            {
-
-                System.Console.WriteLine("Failure:");
-                System.Console.WriteLine($"Message: {e.Message}");
-                System.Console.WriteLine($"Failure: {e.Failure}");
-                System.Console.WriteLine($"Request ID: {e.RequestId}");
-                throw;
-            }
-        }
 
         public class Test
         {

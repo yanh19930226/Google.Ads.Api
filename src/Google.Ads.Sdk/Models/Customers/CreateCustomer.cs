@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Google.Ads.Sdk.Models.Customers
 {
+    /// <summary>
+    /// 创建广告账号model
+    /// </summary>
     public class CreateCustomerModel
     {
         public string descriptiveName { get; set; }
@@ -19,27 +22,33 @@ namespace Google.Ads.Sdk.Models.Customers
        
     }
 
-    public class CreateCustomerMutateRequest : MutateRequest
-    {
-        public CreateCustomerMutateRequest(string customerId, string token, string developToken, List<Operation> operations) :base(token, developToken, operations)
-        {
-            CustomerId = customerId;
-        }
-        public string CustomerId { get; set; }
-        public override string Url => $"/customers/{CustomerId}:createCustomerClient";
-    }
-
-
+    /// <summary>
+    /// 登入经理创建广告账号
+    /// </summary>
     public class CreateCustomerClientRequest :BaseRequest
     {
-        public CreateCustomerClientRequest(string customerId, CreateCustomerModel model,string token, string developToken) : base(token, developToken)
+        /// <summary>
+        /// 登入经理创建广告账号
+        /// </summary>
+        /// <param name="model">广告账号</param>
+        /// <param name="token">口令</param>
+        /// <param name="developToken">开发者账号</param>
+        /// <param name="loginCustomerId">登录经理Id</param>
+        public CreateCustomerClientRequest(string loginCustomerId,CreateCustomerModel model,string token, string developToken) : base(token, developToken, loginCustomerId)
         {
-            CustomerId = customerId;
+            CustomerId = loginCustomerId;
             customerClient = model;
         }
 
         public CreateCustomerModel customerClient { get; set; }
         public string CustomerId { get; set; }
         public  string Url => $"/customers/{CustomerId}:createCustomerClient";
+    }
+
+    public class CreateCustomerClientResponse
+    {
+        public string resourceName { get; set; }
+
+        public string invitationLink { get; set; }
     }
 }

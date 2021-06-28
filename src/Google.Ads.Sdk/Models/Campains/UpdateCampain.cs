@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Google.Ads.Sdk
+namespace Google.Ads.Sdk.Models.Campains
 {
-    public enum OperationEnum
+    class UpdateCampain
     {
-
     }
 }
