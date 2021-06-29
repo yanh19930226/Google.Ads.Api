@@ -55,15 +55,13 @@ namespace Google.Ads.Sdk.Models.Campains
          public string endDate { get; set; }
     } 
 
-    public class CreateCampainMutateRequest : MutateRequest<CreateCampainMutateResponse>
+    public class CreateCampainMutateRequest : MutateRequest<MutateResponse<CreateCampainResponseModel>>
     {
-        public CreateCampainMutateRequest(string customerId,CreateCampainModel model,string token, string developToken, List<Operation> operations,string loginCustomerId) :base(token, developToken, operations,loginCustomerId)
+        public CreateCampainMutateRequest(string customerId,string token, string developToken, List<Operation> operations,string loginCustomerId) :base(token, developToken, operations,loginCustomerId)
         {
             this.CustomerId = customerId;
-            this.Model = model;
         }
         public string CustomerId { get; set; }
-        public CreateCampainModel Model { get; set; }
         public override string Url => $"/customers/{CustomerId}/campaigns:mutate";
     }
 
@@ -74,10 +72,5 @@ namespace Google.Ads.Sdk.Models.Campains
     {
         public string resourceName { get; set; }
         public CreateCampainModel campaign { get; set; }
-    }
-
-    public class CreateCampainMutateResponse : MutateResponse<CreateCampainResponseModel>
-    {
-
     }
 }

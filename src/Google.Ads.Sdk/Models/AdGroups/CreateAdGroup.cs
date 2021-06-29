@@ -24,15 +24,13 @@ namespace Google.Ads.Sdk.Models.AdGroups
         public string campaign { get; set; }
         public int cpcBidMicros { get; set; }
     }
-    public class CreateAdGroupMutateRequest : MutateRequest<CreateAdGroupMutateResponse>
+    public class CreateAdGroupMutateRequest : MutateRequest<MutateResponse<CreateAdGroupResponseModel>>
     {
-        public CreateAdGroupMutateRequest(string customerId, CreateAdGroupModel model, string token, string developToken, List<Operation> operations, string loginCustomerId) : base(token, developToken, operations, loginCustomerId)
+        public CreateAdGroupMutateRequest(string customerId, string token, string developToken, List<Operation> operations, string loginCustomerId) : base(token, developToken, operations, loginCustomerId)
         {
             this.CustomerId = customerId;
-            this.Model = model;
         }
         public string CustomerId { get; set; }
-        public CreateAdGroupModel Model { get; set; }
         public override string Url => $"/customers/{CustomerId}/adGroups:mutate";
     }
 
@@ -41,9 +39,7 @@ namespace Google.Ads.Sdk.Models.AdGroups
     /// </summary>
     public class CreateAdGroupResponseModel
     {
-
-    }
-    public class CreateAdGroupMutateResponse
-    {
+        public string resourceName { get; set; }
+        public CreateAdGroupModel adGroup { get; set; }
     }
 }

@@ -34,8 +34,7 @@ namespace Google.Ads.Sdk.Models.Bases
     public class MutateResponse<T>
     {
         public PartialFailureError partialFailureError { get; set; }
-        //public string resourceName { get; set; }
-        public  List<T> results { get; }
+        public  List<T> results { get; set; }
     }
 
     public enum ResponseContentType

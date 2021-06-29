@@ -21,19 +21,17 @@ namespace Google.Ads.Sdk.Models.CampainBudgets
     public class CreateCampainBudgetModel
     {
         public string name { get; set; }
-        public int amountMicros { get; set; }
+        public string amountMicros { get; set; }
         public BudgetDeliveryMethod deliveryMethod { get; set; }
 
     }
-    public class CreateCampainBudgetMutateRequest : MutateRequest<CreateCampainBudgetResponse>
+    public class CreateCampainBudgetMutateRequest : MutateRequest<MutateResponse<CreateCampainBudgetResponseModel>>
     {
-        public CreateCampainBudgetMutateRequest(string customerId, CreateCampainBudgetModel model, string token, string developToken, List<Operation> operations, string loginCustomerId) : base(token, developToken, operations, loginCustomerId)
+        public CreateCampainBudgetMutateRequest(string customerId,string token, string developToken, List<Operation> operations, string loginCustomerId) : base(token, developToken, operations, loginCustomerId)
         {
             this.CustomerId = customerId;
-            this.Model = model;
         }
         public string CustomerId { get; set; }
-        public CreateCampainBudgetModel Model { get; set; }
         public override string Url => $"/customers/{CustomerId}/campaignBudgets:mutate";
     }
 
@@ -44,10 +42,6 @@ namespace Google.Ads.Sdk.Models.CampainBudgets
     {
         public string resourceName { get; set; }
         public CreateCampainBudgetModel campaignBudget { get; set; }
-    }
-    public class CreateCampainBudgetResponse : MutateResponse<CreateCampainBudgetResponseModel>
-    {
-
     }
 }
 

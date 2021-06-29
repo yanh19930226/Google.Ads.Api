@@ -27,7 +27,7 @@ namespace Google.Ads.Sdk.Models.Bases
             builder.Operations.Add(createOperation);
             return builder;
         }
-        public static MutateOperationsBuilder ConfigureUpdateCreateOperation<T>(
+        public static MutateOperationsBuilder ConfigureUpdateOperation<T>(
           this MutateOperationsBuilder builder,
            UpdateOperation<T> updateOperation)
         {
