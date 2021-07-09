@@ -9,6 +9,7 @@ using Google.Ads.Sdk.Models.Customers;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using CreateCustomerClientRequest = Google.Ads.Sdk.Models.Customers.CreateCustomerClientRequest;
@@ -29,14 +30,15 @@ namespace Google.Ads.Console
             GoogleClient client = new GoogleClient(loggerMock.Object, new HttpClient(), policy);
 
             var logincustomerId = "9596133160";
-            var accessToken = "ya29.a0ARrdaM81u2urd6WaMdjg2kchO30AOzifbVTO-0bPOP5mjoIzegIa4RkrB_mJKswYGJUy35r3NmKl0iBYxHLla1jYpqBlInAAE3Bl0QVUG1gGc-8nQmwgyflvSadFqwWuLRSBxDeEvmLjMNsESnSTjAPkl-Ch";
+
+            var accessToken = "ya29.a0ARrdaM_QamycFWTrhM9JsgqRhDY2F40Lrdsx3zsxcItrsEcJowgvUFf70u_Ayx9Edt0pki2uls8X_rIPExocWGlguRVyxNACsNDP-FCxepipdxtQ9ONEtfqMwe140D26gNWUCIwBGvd4bjysgwvRBkUmgJ_u";
             var developToken = "Fu8l4LAdiKG9BLBPsLB3uA";
 
             #region CreateCustomer
 
             //CreateCustomerModel createModel = new CreateCustomerModel();
             //createModel.currencyCode = "USD";
-            //createModel.descriptiveName = "apitest11133";
+            //createModel.descriptiveName = "apitest11133ii";
             //createModel.timeZone = "America/New_York";
 
             //var createCustomerClientRequest = new CreateCustomerClientRequest(logincustomerId, createModel, accessToken, developToken);
@@ -51,7 +53,7 @@ namespace Google.Ads.Console
 
             //CreateCampainBudgetModel createCampainBudgetModel = new CreateCampainBudgetModel()
             //{
-            //    name = "yanhTestBudgetsfssfsyuyu",
+            //    name = "yanhTestBudgetsfssfsyuyukl",
             //    amountMicros = "500000",
             //    deliveryMethod = BudgetDeliveryMethod.STANDARD
             //};
@@ -113,29 +115,29 @@ namespace Google.Ads.Console
 
             #region CreateCampainAdGroupAd
 
-            CreateAdGroupAdModel createAdGroupAdModel = new CreateAdGroupAdModel()
-            {
-                adGroup = "customers/3833618729/adGroups/129830830488",
-                status = AdGroupAdStatus.PAUSED,
-                ad = new UpdateAdModel()
-                {
-                    finalUrls = new List<string>() { "http://www.yanhfundf.com" },
-                    expandedTextAd = new ExpandedTextAdInfo
-                    {
-                        description = "descriptionddd",
-                        headlinePart1 = "headlinePart1d",
-                        headlinePart2 = "headlinePart2d",
-                        path1 = "path1dd",
-                        path2 = "path2ddd"
-                    }
-                }
-            };
+            //CreateAdGroupAdModel createAdGroupAdModel = new CreateAdGroupAdModel()
+            //{
+            //    adGroup = "customers/3833618729/adGroups/129830830488",
+            //    status = AdGroupAdStatus.PAUSED,
+            //    ad = new UpdateAdModel()
+            //    {
+            //        finalUrls = new List<string>() { "http://www.yanhfundf.com" },
+            //        expandedTextAd = new ExpandedTextAdInfo
+            //        {
+            //            description = "descriptionddd",
+            //            headlinePart1 = "headlinePart1d",
+            //            headlinePart2 = "headlinePart2d",
+            //            path1 = "path1dd",
+            //            path2 = "path2ddd"
+            //        }
+            //    }
+            //};
 
-            var createAdGroupAdOperations = new MutateOperationsBuilder().ConfigureCreateOperation(new CreateOperation<CreateAdGroupAdModel>(createAdGroupAdModel)).Build();
+            //var createAdGroupAdOperations = new MutateOperationsBuilder().ConfigureCreateOperation(new CreateOperation<CreateAdGroupAdModel>(createAdGroupAdModel)).Build();
 
-            var createAdGroupAdMutateRequest = new CreateAdGroupAdMutateRequest("3833618729", accessToken, developToken, createAdGroupAdOperations, logincustomerId);
+            //var createAdGroupAdMutateRequest = new CreateAdGroupAdMutateRequest("3833618729", accessToken, developToken, createAdGroupAdOperations, logincustomerId);
 
-            var createAdGroupadRes = client.MutateRequest(createAdGroupAdMutateRequest);
+            //var createAdGroupadRes = client.MutateRequest(createAdGroupAdMutateRequest);
 
             #endregion
 
@@ -199,7 +201,62 @@ namespace Google.Ads.Console
 
             #endregion
 
+            #region ListAccessibleCustomers
+            //ListAccessibleCustomersRequest listAccessibleCustomersRequest = new ListAccessibleCustomersRequest(accessToken,developToken);
+
+            //var res = client.ListAccessibleCustomers(listAccessibleCustomersRequest); 
+            #endregion
+
+            #region OneMutateRequest CreateCustomerUserAccessInvitation
+
+            //CreateCustomerUserAccessInvitationModel model = new CreateCustomerUserAccessInvitationModel()
+            //{
+            //    accessRole = AccessRole.ADMIN,
+            //    emailAddress = "elston159hzlp0@mail.com",
+            //    creationDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            //};
+
+            //var operation = new CreateOperation<CreateCustomerUserAccessInvitationModel>(model);
+
+            //CreateCustomerUserAccessInvitationRequest createCustomerUserAccessInvitationRequest = new CreateCustomerUserAccessInvitationRequest("9596133160", accessToken, developToken, operation, "9596133160");
+
+            //var res = client.OneMutateRequest(createCustomerUserAccessInvitationRequest);
+
             //System.Console.WriteLine(res.ToString());
+
+            #endregion
+
+            #region GetCustomerUserAccessInvitationRequest
+
+            GetCustomerUserAccessInvitationRequest getCustomerUserAccessInvitationRequest = new GetCustomerUserAccessInvitationRequest("9596133160", "77885268", accessToken, developToken);
+
+            var res = client.GetRequest(getCustomerUserAccessInvitationRequest);
+
+            System.Console.WriteLine(res.ToString());
+
+            #endregion
+
+            #region RemoveCustomerUserAccessInvitationRequest
+
+            //var operation = new RemoveOperation() { remove= "/customers/9596133160/customerUserAccessInvitations/77885268" };
+
+            //RemoveCustomerUserAccessInvitationRequest removeCustomerUserAccessInvitationRequest = new RemoveCustomerUserAccessInvitationRequest("9596133160", accessToken, developToken,operation,null);
+
+            //var res = client.OneMutateRequest(removeCustomerUserAccessInvitationRequest);
+
+            //System.Console.WriteLine(res.ToString());
+
+            #endregion
+
+            #region CustomerUserAccessRequest
+
+            //CustomerUserAccessRequest CustomerUserAccessRequest = new CustomerUserAccessRequest("/customers/3833618729/customerUserAccesses/13693376620", accessToken, developToken);
+
+            //var res = client.GetRequest(CustomerUserAccessRequest);
+
+            //System.Console.WriteLine(res.ToString());
+
+            #endregion
 
         }
 

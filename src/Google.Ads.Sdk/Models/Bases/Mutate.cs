@@ -59,4 +59,34 @@ namespace Google.Ads.Sdk.Models.Bases
 
         public string message { get; set; }
     }
+
+    /// <summary>
+    /// OneMutateRequest
+    /// </summary>
+    public abstract class OneMutateRequest : BaseRequest
+    {
+        /// <summary>
+        /// Mutate请求类
+        /// </summary>
+        /// <param name="token">口令</param>
+        /// <param name="developToken">开发者口令</param>
+        /// <param name="operations">Oprations</param>
+        /// <param name="logingCustomerId">登入经理Id</param>
+        /// <param name="linkedCustomerId">关联经理Id</param>
+        public OneMutateRequest(string token, string developToken, Operation operation, string logingCustomerId = null, string linkedCustomerId = null) : base(token, developToken, logingCustomerId, linkedCustomerId)
+        {
+            Operation = operation;
+        }
+        public Operation Operation { get; set; }
+        public abstract string Url { get; }
+    }
+
+    /// <summary>
+    /// OneMutateRequest
+    /// </summary>
+    public  class OneMutateResponse
+    {
+        public string resourceName { get; set; }
+
+    }
 }
