@@ -6,6 +6,7 @@ using Google.Ads.Sdk.Models.Bases;
 using Google.Ads.Sdk.Models.CampainBudgets;
 using Google.Ads.Sdk.Models.Campains;
 using Google.Ads.Sdk.Models.Customers;
+using Google.Ads.Sdk.Models.Reports;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
@@ -31,7 +32,7 @@ namespace Google.Ads.Console
 
             var logincustomerId = "9596133160";
 
-            var accessToken = "ya29.a0ARrdaM_QamycFWTrhM9JsgqRhDY2F40Lrdsx3zsxcItrsEcJowgvUFf70u_Ayx9Edt0pki2uls8X_rIPExocWGlguRVyxNACsNDP-FCxepipdxtQ9ONEtfqMwe140D26gNWUCIwBGvd4bjysgwvRBkUmgJ_u";
+            var accessToken = "ya29.a0ARrdaM9xRixr_WcRmTH_Go1DUzIHNr-ZUa5qehKmSNP4m_xgM8gCWouAIQaftKJ-edT3jcUJ19epCXCg11OD1D7B1c7RfghsCI8h8T7g-W4g94EbH6hK441PgVLrq7q9JU6EBa93CSaBTKZUzB5qyQNszLiz";
             var developToken = "Fu8l4LAdiKG9BLBPsLB3uA";
 
             #region CreateCustomer
@@ -188,16 +189,9 @@ namespace Google.Ads.Console
             //                          campaign.status
             //                        FROM campaign";
 
+            //CampainReportSearchStreamRequest req = new CampainReportSearchStreamRequest("3833618729", accessToken, "Fu8l4LAdiKG9BLBPsLB3uA", query1, "9596133160");
 
-            //CampainReportSearchStreamRequest req = new CampainReportSearchStreamRequest("9596133160", accessToken, "Fu8l4LAdiKG9BLBPsLB3uA", query);
-
-            //var res=client.SearchStreamRequest(req);
-
-
-
-            //CampainReportSearchRequest campainReportSearchRequest = new CampainReportSearchRequest("", "", "", "");
-
-            //client.SearchRequest(campainReportSearchRequest);
+            //var res = client.SearchStreamRequest(req);
 
             #endregion
 
@@ -228,11 +222,11 @@ namespace Google.Ads.Console
 
             #region GetCustomerUserAccessInvitationRequest
 
-            GetCustomerUserAccessInvitationRequest getCustomerUserAccessInvitationRequest = new GetCustomerUserAccessInvitationRequest("9596133160", "77885268", accessToken, developToken);
+            //GetCustomerUserAccessInvitationRequest getCustomerUserAccessInvitationRequest = new GetCustomerUserAccessInvitationRequest("9596133160", "77885268", accessToken, developToken);
 
-            var res = client.GetRequest(getCustomerUserAccessInvitationRequest);
+            //var res = client.GetRequest(getCustomerUserAccessInvitationRequest);
 
-            System.Console.WriteLine(res.ToString());
+            //System.Console.WriteLine(res.ToString());
 
             #endregion
 
@@ -253,6 +247,71 @@ namespace Google.Ads.Console
             //CustomerUserAccessRequest CustomerUserAccessRequest = new CustomerUserAccessRequest("/customers/3833618729/customerUserAccesses/13693376620", accessToken, developToken);
 
             //var res = client.GetRequest(CustomerUserAccessRequest);
+
+            //System.Console.WriteLine(res.ToString());
+
+            #endregion
+
+
+            #region CreateCustomerClientLink
+
+            //CreateCustomerClientLinkModel createCustomerClientLinkModel = new CreateCustomerClientLinkModel()
+            //{
+            //    clientCustomer = "customers/8639308376",
+            //    status = ManagerLinkStatus.PENDING
+            //};
+            //var operation = new CreateOperation<CreateCustomerClientLinkModel>(createCustomerClientLinkModel);
+
+            //CreateCustomerClientLinkRequest createCustomerClientLinkRequest = new CreateCustomerClientLinkRequest("9596133160", accessToken, developToken, operation, "9596133160");
+
+            //var res = client.OneMutateRequest(createCustomerClientLinkRequest);
+
+            //System.Console.WriteLine(res.ToString());
+
+            #endregion
+
+            #region UpdateCustomerClientLink
+
+            //UpdateCustomerClientLinkModel updateCustomerClientLinkModel = new UpdateCustomerClientLinkModel()
+            //{
+
+            //    resourceName= "/customers/9596133160/customerClientLinks/8639308376~219591766",
+            //    //clientCustomer = "customers/8639308376",
+            //    status = ManagerLinkStatus.CANCELED
+            //};
+            //var operation = new UpdateOperation<UpdateCustomerClientLinkModel>(updateCustomerClientLinkModel);
+
+            //UpdateCustomerClientLinkRequest updateCustomerClientLinkRequest = new UpdateCustomerClientLinkRequest("9596133160", accessToken, developToken, operation, "9596133160");
+
+            //var res = client.OneMutateRequest(updateCustomerClientLinkRequest);
+
+            //System.Console.WriteLine(res.ToString());
+
+            #endregion
+
+            #region GetCustomerClientLinkRequest
+
+            //GetCustomerClientLinkRequest getCustomerClientLinkRequest = new GetCustomerClientLinkRequest("9596133160", "8639308376~219591766", accessToken, developToken, "9596133160");
+
+            //var res = client.GetRequest(getCustomerClientLinkRequest);
+
+            //System.Console.WriteLine(res.ToString());
+
+            #endregion
+
+            #region UpdateCustomerManagerLinkRequest
+
+            //UpdateCustomerManagerLinkModel updateCustomerManagerLinkModel = new UpdateCustomerManagerLinkModel()
+            //{
+            //    status = ManagerLinkStatus.ACTIVE,
+            //    resourceName = "/customers/9596133160/customerClientLinks/8639308376~219591766"
+            //};
+
+            //var operation = new MutateOperationsBuilder().ConfigureUpdateOperation(new UpdateOperation<UpdateCustomerManagerLinkModel>(updateCustomerManagerLinkModel)).Build();
+
+            //UpdateCustomerManagerLinkRequest updateCustomerManagerLinkRequest = new UpdateCustomerManagerLinkRequest("9596133160", "8639308376~219591766", accessToken, developToken, operation, "9596133160");
+
+            //var res = client.MutateRequest(updateCustomerManagerLinkRequest);
 
             //System.Console.WriteLine(res.ToString());
 

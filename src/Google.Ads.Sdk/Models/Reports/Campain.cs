@@ -38,7 +38,7 @@ namespace Google.Ads.Sdk.Models.Reports
     /// </summary>
     public class CampainReportSearchStreamRequest : SearchStreamRequest<SearchResponse<CampainReportSearchResponseModel>>
     {
-        public CampainReportSearchStreamRequest(string customerId,string token,string developToken,string query) :base(token, developToken,query)
+        public CampainReportSearchStreamRequest(string customerId,string token,string developToken,string query,string  loginCustomerId) :base(token, developToken,query,loginCustomerId)
         {
             this.CustomerId = customerId;
         }
